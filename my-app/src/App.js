@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import ProductList from "./ProductList";
 
 function App() {
   const [data, setData] = useState();
@@ -11,7 +12,7 @@ function App() {
   useEffect(() => {
     const access = async () => {
       try {
-        const response = await fetch("http://localhost:3000", {
+        const response = await fetch("http://localhost:3000/cart-items", {
           headers: {
             Authorization: `Basic ${base64}`,
           },
@@ -25,13 +26,11 @@ function App() {
     };
 
     access();
+
+    console.log(data);
   }, [base64]);
 
-  return (
-    <div className="App">
-      <span>{data}</span>
-    </div>
-  );
+  return <div className="App">{data && <ProductList data={data} />}</div>;
 }
 
 export default App;
